@@ -13,9 +13,9 @@ object Fornecimento {
 
     def getByCodeQuery(code: String)(implicit ex: ExecutionContext) = Query[Fornecimento]()
         .selectLiteral(
-            "FORN_FORNITURA_ID IdFORN",
-            "FORN_FORNITURA_COD CodFORN"
-        ) withParser defaultSqlParser from "CONF_FORNITURE" where s"FORN_FORNITURA_COD = '$code'"
+            "{column-name}_ID IdFORN",
+            "{column-name}_COD CodFORN"
+        ) withParser defaultSqlParser from "{table-name}" where s"{column-name}_COD = '$code'"
 
     def getByCode(code: String)(implicit ex: ExecutionContext): Future[Fornecimento] = getByCodeQuery(code) perform() map (fs => fs.head)
 
